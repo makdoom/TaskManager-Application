@@ -2,23 +2,24 @@ import { StyleSheet } from "react-native";
 import colors from "../../constant/colors";
 
 export default StyleSheet.create({
-  headerContainer: {
-    marginTop: 22,
+  tabViewContainer: {
     paddingHorizontal: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  appsIcon: {
+  button: {
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+    borderRadius: 20,
+  },
+  btnText: {
+    fontFamily: "RubikRegular",
+  },
+  activeButton: {
     backgroundColor: colors.primary,
-    padding: 10,
-    paddingHorizontal: 12,
-    borderRadius: 60,
+  },
+  activeButtonText: {
     color: colors.white,
   },
-  title: {
-    fontFamily: "RubikMedium",
-    fontSize: 17,
-  },
-  notificationIcon: {},
 });
