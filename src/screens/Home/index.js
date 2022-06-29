@@ -37,6 +37,8 @@ const Home = () => {
             selectedTab={tabStatus}
             changeSelectedTab={handleChangeStatus}
           />
+
+          {/* Task List */}
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
