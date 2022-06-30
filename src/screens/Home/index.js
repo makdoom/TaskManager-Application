@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, ScrollView, Text, View } from "react-native";
+import {
+  FlatList,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import CustomTabView from "../../components/CustomTabView";
 import Header from "../../components/Header";
 import TaskList from "../../components/TaskList";
 import colors from "../../constant/colors";
 import styles from "./styles";
+import { Feather } from "react-native-vector-icons";
 
 const Home = () => {
   let tabButtons = [
@@ -47,6 +54,10 @@ const Home = () => {
             </View>
           )}
         />
+        <TouchableOpacity style={styles.addButton}>
+          <Feather name="plus" size={25} />
+          <Text style={styles.btnText}>Add Task</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </SafeAreaProvider>
   );
