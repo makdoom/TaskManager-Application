@@ -1,6 +1,10 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
+  safeAreaViewContainer: {
+    flex: 1,
+  },
+  homeContainer: {},
   introContainer: {
     marginVertical: 30,
     paddingHorizontal: 16,

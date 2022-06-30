@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { FlatList, ScrollView, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import CustomTabView from "../../components/CustomTabView";
 import Header from "../../components/Header";
+import TaskList from "../../components/TaskList";
+import colors from "../../constant/colors";
 import styles from "./styles";
 
 const Home = () => {
@@ -21,25 +23,29 @@ const Home = () => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView>
-        <View style={styles.homeContainer}>
-          <Header />
+      <SafeAreaView style={styles.safeAreaViewContainer}>
+        <FlatList
+          data={[{}]}
+          keyExtractor={() => null}
+          renderItem={() => (
+            <View style={styles.homeContainer}>
+              <Header />
 
-          {/* Intro */}
-          <View style={styles.introContainer}>
-            <Text style={styles.subtitle}>Welcome Back !</Text>
-            <Text style={styles.title}>Here's Update Today</Text>
-          </View>
+              <View style={styles.introContainer}>
+                <Text style={styles.subtitle}>Welcome Back !</Text>
+                <Text style={styles.title}>Here's Update Today</Text>
+              </View>
 
-          {/* Custom Tab View */}
-          <CustomTabView
-            buttonList={tabButtons}
-            selectedTab={tabStatus}
-            changeSelectedTab={handleChangeStatus}
-          />
+              <CustomTabView
+                buttonList={tabButtons}
+                selectedTab={tabStatus}
+                changeSelectedTab={handleChangeStatus}
+              />
 
-          {/* Task List */}
-        </View>
+              <TaskList />
+            </View>
+          )}
+        />
       </SafeAreaView>
     </SafeAreaProvider>
   );
