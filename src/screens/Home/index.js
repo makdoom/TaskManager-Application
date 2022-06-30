@@ -25,6 +25,7 @@ const Home = () => {
     <SafeAreaProvider>
       <SafeAreaView style={styles.safeAreaViewContainer}>
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={[{}]}
           keyExtractor={() => null}
           renderItem={() => (
