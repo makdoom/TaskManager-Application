@@ -25,13 +25,26 @@ export default StyleSheet.create({
     fontFamily: "RubikSemiBold",
     fontSize: 22,
   },
-  buttonContainer: {},
-  addButton: {
-    justifyContent: "center",
+  buttonContainer: {
+    backgroundColor: "white",
     alignItems: "center",
-    marginBottom: 30,
-    backgroundColor: colors.primary,
-    width: 200,
   },
-  btnText: {},
+  addButton: {
+    borderWidth: 1,
+    position: "absolute",
+    bottom: 20,
+    alignSelf: "center",
+    paddingVertical: 18,
+    paddingHorizontal: 30,
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 30,
+    backgroundColor: colors.primary,
+  },
+  btnText: {
+    color: colors.white,
+    fontSize: 15,
+    fontFamily: "RubikMedium",
+    marginLeft: 5,
+  },
 });
