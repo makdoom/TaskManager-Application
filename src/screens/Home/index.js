@@ -14,7 +14,7 @@ import colors from "../../constant/colors";
 import styles from "./styles";
 import { Entypo } from "react-native-vector-icons";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   let tabButtons = [
     { id: 1, text: "Today" },
     { id: 2, text: "Upcoming" },
@@ -23,6 +23,8 @@ const Home = () => {
   const [tabStatus, setTabStatus] = useState("Today");
 
   const handleChangeStatus = (status) => setTabStatus(status);
+
+  const handleAddTask = () => navigation.navigate("AddTask");
 
   useEffect(() => {
     console.log(tabStatus);
@@ -54,12 +56,11 @@ const Home = () => {
             </View>
           )}
         />
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.addButton}>
-            <Entypo name="plus" size={20} color={colors.white} />
-            <Text style={styles.btnText}>Add Task</Text>
-          </TouchableOpacity>
-        </View>
+        {/* Add task */}
+        <TouchableOpacity onPress={handleAddTask} style={styles.addButton}>
+          <Entypo name="plus" size={20} color={colors.white} />
+          <Text style={styles.btnText}>Add Task</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </SafeAreaProvider>
   );

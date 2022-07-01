@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import AddTask from "./src/screens/AddTask";
 import Home from "./src/screens/Home";
 
 const Stack = createStackNavigator();
@@ -27,10 +28,10 @@ export default function App() {
   if (!loaded) return null;
 
   return (
-    // <Text>Makdoom</Text>
     <NavigationContainer theme={theme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="AddTask" component={AddTask} />
       </Stack.Navigator>
     </NavigationContainer>
   );
