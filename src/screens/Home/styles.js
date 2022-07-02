@@ -30,9 +30,10 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   addButton: {
-    borderWidth: 1,
     position: "absolute",
-    bottom: 20,
+    bottom: 25,
+    borderWidth: 1,
+    zIndex: 1,
     alignSelf: "center",
     paddingVertical: 15,
     paddingHorizontal: 20,
