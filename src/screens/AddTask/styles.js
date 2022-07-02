@@ -2,8 +2,13 @@ import { Dimensions, StyleSheet } from "react-native";
 import colors from "../../constant/colors";
 
 export default StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   addTaskContainer: {
     paddingTop: 50,
+    flex: 1,
+    position: "relative",
   },
   addTaskHeader: {
     marginTop: 22,
@@ -68,5 +73,27 @@ export default StyleSheet.create({
     width: 40,
     borderRadius: 40,
     marginRight: 15,
+  },
+
+  addButton: {
+    borderWidth: 1,
+    position: "absolute",
+    bottom: 30,
+    width: "90%",
+    justifyContent: "center",
+    alignSelf: "center",
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 30,
+    backgroundColor: colors.primary,
+    elevation: 10,
+  },
+  btnText: {
+    color: colors.white,
+    fontSize: 17,
+    fontFamily: "RubikMedium",
+    marginLeft: 5,
   },
 });
