@@ -13,6 +13,9 @@ import TaskList from "../../components/TaskList";
 import colors from "../../constant/colors";
 import styles from "./styles";
 import { Entypo } from "react-native-vector-icons";
+import TodaysTask from "../../components/TodaysTask";
+import UpcomingTask from "../../components/UpcomingTask";
+import CompletedTask from "../../components/CompletedTask";
 
 const Home = ({ navigation }) => {
   let tabButtons = [
@@ -52,7 +55,14 @@ const Home = ({ navigation }) => {
                 changeSelectedTab={handleChangeStatus}
               />
 
-              <TaskList />
+              {tabStatus === "Today" ? (
+                <TodaysTask />
+              ) : tabStatus === "Upcoming" ? (
+                <UpcomingTask />
+              ) : (
+                <CompletedTask />
+              )}
+              {/* <TaskList /> */}
             </View>
           )}
         />
