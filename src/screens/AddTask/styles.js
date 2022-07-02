@@ -78,7 +78,7 @@ export default StyleSheet.create({
   addButton: {
     borderWidth: 1,
     position: "absolute",
-    bottom: 30,
+    bottom: 20,
     width: "90%",
     justifyContent: "center",
     alignSelf: "center",

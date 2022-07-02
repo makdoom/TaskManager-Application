@@ -10,7 +10,7 @@ const TextField = ({ placeholder, handleTaskChange }) => {
         style={[styles.textField]}
         placeholder={placeholder}
         placeholderStyle={{ fontFamily: "RubikLight", borderColor: "red" }}
-        onChange={(text) => handleTaskChange(text)}
+        onChangeText={(text) => handleTaskChange(text)}
       />
     </View>
   );

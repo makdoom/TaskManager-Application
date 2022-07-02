@@ -19,27 +19,9 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
 import TButton from "../../components/Button";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
-const taskTypeButtonList = [
-  { id: 1, type: "Home" },
-  { id: 2, type: "Work" },
-  { id: 3, type: "Important" },
-  { id: 4, type: "Urgent" },
-  { id: 5, type: "Basic" },
-  { id: 6, type: "Lifestyle" },
-  { id: 7, type: "Activity" },
-];
-
-const colorList = [
-  { id: 1, color: colors.color1 },
-  { id: 2, color: colors.color2 },
-  { id: 3, color: colors.color3 },
-  { id: 4, color: colors.color4 },
-  { id: 5, color: colors.color5 },
-  { id: 6, color: colors.color6 },
-  { id: 7, color: colors.color7 },
-  { id: 8, color: colors.color8 },
-];
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "../../config/firebase";
+import { colorList, taskTypeButtonList } from "../../constant/data";
 
 const AddTask = ({ navigation }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -56,9 +38,11 @@ const AddTask = ({ navigation }) => {
     setNewTask({ ...newTask, taskType: text });
   };
 
-  const handleChangeColor = (color) =>
+  const handleChangeColor = (color) => {
     setNewTask({ ...newTask, taskColor: color });
+  };
 
+  // Date Picker
   const showDatePicker = () => setDatePickerVisibility(true);
 
   const hideDatePicker = () => {
@@ -70,6 +54,25 @@ const AddTask = ({ navigation }) => {
 
     setNewTask({ ...newTask, deadline: selectedDate });
     hideDatePicker();
+  };
+
+  // Create new task and saved to firstore
+  const createNewTask = async () => {
+    if (!newTask.title || !newTask.deadline) return;
+
+    let docData = {
+      taskTitle: newTask?.title,
+      deadline: newTask?.deadline,
+      taskType: newTask?.taskType,
+      colorCode: newTask?.taskColor,
+      timestamp: serverTimestamp(),
+    };
+
+    const createdTaskRef = await addDoc(collection(db, "Tasks"), docData);
+    console.log(createdTaskRef.id);
+    if (createNewTask) {
+      navigation.navigate("Home");
+    }
   };
 
   return (
@@ -167,7 +170,10 @@ const AddTask = ({ navigation }) => {
         {/* Save tak button */}
       </KeyboardAwareScrollView>
 
-      <TouchableOpacity onPress={() => {}} style={styles.addButton}>
+      <TouchableOpacity
+        onPress={() => createNewTask()}
+        style={styles.addButton}
+      >
         <Text style={styles.btnText}>Save Task</Text>
       </TouchableOpacity>
     </>
