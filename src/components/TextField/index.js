@@ -3,15 +3,14 @@ import React, { useState } from "react";
 import styles from "./styles";
 import colors from "../../constant/colors";
 
-const TextField = ({ isFocused, changeFocus, placeholder }) => {
+const TextField = ({ placeholder, handleTaskChange }) => {
   return (
     <View style={styles.textContainer}>
       <TextInput
-        style={[styles.textField, isFocused && { borderColor: colors.primary }]}
+        style={[styles.textField]}
         placeholder={placeholder}
         placeholderStyle={{ fontFamily: "RubikLight", borderColor: "red" }}
-        onFocus={() => changeFocus(true)}
-        onBlur={(e) => changeFocus(false)}
+        onChange={(text) => handleTaskChange(text)}
       />
     </View>
   );

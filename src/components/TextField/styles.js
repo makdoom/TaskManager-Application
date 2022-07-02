@@ -3,7 +3,7 @@ import colors from "../../constant/colors";
 
 export default StyleSheet.create({
   textContainer: {
-    marginBottom: 10,
+    marginBottom: 25,
   },
   label: {
     fontFamily: "RubikRegular",
@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   textField: {
     backgroundColor: colors.white,
-    paddingVertical: 10,
+    paddingVertical: 12,
     paddingHorizontal: 15,
     borderRadius: 30,
     fontFamily: "RubikMedium",
