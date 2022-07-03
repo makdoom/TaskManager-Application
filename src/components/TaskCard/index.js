@@ -12,7 +12,7 @@ const TaskCard = ({ item }) => {
   const [isCheckedTask, setIsCheckedTask] = useState(true);
 
   return (
-    <View style={styles.taskCard}>
+    <View style={[styles.taskCard, { backgroundColor: item?.colorCode }]}>
       <View style={styles.taskTopCard}>
         <Text style={styles.taskType}>{item?.taskType}</Text>
         <MaterialCommunityIcons
@@ -28,11 +28,15 @@ const TaskCard = ({ item }) => {
         <View>
           <View style={styles.calenderIconBox}>
             <Feather name="calendar" size={20} />
-            <Text style={styles.subTitle}>{item?.deadlineDate}</Text>
+            <Text style={styles.subTitle}>
+              {item?.deadline?.split(", ")[0]}
+            </Text>
           </View>
           <View style={styles.deadlineBox}>
             <Ionicons name="time-outline" size={20} />
-            <Text style={styles.subTitle}>{item?.deadlineTime}</Text>
+            <Text style={styles.subTitle}>
+              {item?.deadline?.split(", ")[1]}
+            </Text>
           </View>
         </View>
         {isCheckedTask ? (

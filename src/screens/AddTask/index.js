@@ -35,6 +35,7 @@ const AddTask = ({ navigation }) => {
     deadline: "",
     taskType: "Home",
     taskColor: colorList[0].color,
+    taskCategory: "",
   });
 
   const handleTaskChange = (text) => {
@@ -59,9 +60,32 @@ const AddTask = ({ navigation }) => {
 
   const handleConfirm = (date) => {
     setError({ title: "", deadline: "" });
-    let selectedDate = formatDate(date);
 
-    setNewTask({ ...newTask, deadline: selectedDate });
+    let todaysDate = moment(new Date()).format("YYYY-MM-DD");
+    let userSelectedDate = moment(date).format("YYYY-MM-DD");
+
+    if (moment(userSelectedDate).isBefore(todaysDate)) {
+      return setError({
+        ...error,
+        deadline: "Please select valid date can not select past date",
+      });
+    }
+
+    // checking if it is matches with todays date or not
+    if (moment(userSelectedDate).isSame(todaysDate)) {
+      setNewTask({
+        ...newTask,
+        deadline: formatDate(date),
+        taskCategory: "today",
+      });
+    } else {
+      setNewTask({
+        ...newTask,
+        deadline: formatDate(date),
+        taskCategory: "upcoming",
+      });
+    }
+
     hideDatePicker();
   };
 
@@ -82,6 +106,7 @@ const AddTask = ({ navigation }) => {
       deadline: newTask?.deadline,
       taskType: newTask?.taskType,
       colorCode: newTask?.taskColor,
+      taskCategory: newTask?.taskCategory,
       timestamp: serverTimestamp(),
     };
 

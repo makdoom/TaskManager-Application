@@ -3,10 +3,11 @@ import colors from "../../constant/colors";
 
 export default StyleSheet.create({
   taskCard: {
-    backgroundColor: colors.color4,
-    marginBottom: 15,
+    marginBottom: 20,
     borderRadius: 15,
     padding: 15,
+    elevation: 10,
+    shadowColor: "#aaa",
   },
   taskTopCard: {
     flexDirection: "row",
@@ -19,10 +20,11 @@ export default StyleSheet.create({
   taskType: {
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#aaa",
     paddingHorizontal: 15,
     paddingVertical: 6,
-    fontFamily: "RubikRegular",
+    fontFamily: "RubikSemiBold",
+    fontSize: 13,
   },
   taskMiddleCard: {
     marginVertical: 20,

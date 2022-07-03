@@ -1,11 +1,36 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles";
+import TaskList from "../TaskList";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import { db } from "../../config/firebase";
 
 const TodaysTask = () => {
+  const [taskList, setTaskList] = useState([]);
+
+  useEffect(() => {
+    // fetch data from firebase
+    const unsubscribe = onSnapshot(
+      query(collection(db, "Tasks"), orderBy("timestamp", "desc")),
+      (snapshot) => {
+        setTaskList(snapshot.docs);
+      }
+    );
+  }, []);
+
   return (
     <View>
-      <Text>TodaysTask</Text>
+      {taskList.length > 0 ? (
+        <TaskList taskList={taskList} />
+      ) : (
+        <Text>No task yet</Text>
+      )}
     </View>
   );
 };
