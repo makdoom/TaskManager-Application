@@ -91,6 +91,7 @@ export default StyleSheet.create({
     borderRadius: 30,
     backgroundColor: colors.primary,
     elevation: 10,
+    marginBottom: 0,
   },
   btnText: {
     color: colors.white,

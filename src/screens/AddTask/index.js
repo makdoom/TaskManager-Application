@@ -22,6 +22,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { colorList, taskTypeButtonList } from "../../constant/data";
+import ButtonSpinner from "react-native-button-spinner";
 
 const AddTask = ({ navigation }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -198,16 +199,19 @@ const AddTask = ({ navigation }) => {
             </View>
           </View>
         </View>
-
-        {/* Save tak button */}
       </KeyboardAwareScrollView>
 
-      <TouchableOpacity
-        onPress={() => createNewTask()}
+      {/* Save tak button */}
+      <ButtonSpinner
+        styleSpinner={{
+          style: { marginRight: 8 },
+          color: "#fff",
+        }}
+        onPress={createNewTask}
         style={styles.addButton}
       >
         <Text style={styles.btnText}>Save Task</Text>
-      </TouchableOpacity>
+      </ButtonSpinner>
     </>
   );
 };
