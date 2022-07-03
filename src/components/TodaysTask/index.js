@@ -11,8 +11,10 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
+import Skeleton from "../Skeleton";
 
 const TodaysTask = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [taskList, setTaskList] = useState([]);
 
   useEffect(() => {
@@ -31,11 +33,8 @@ const TodaysTask = () => {
 
   return (
     <View>
-      {taskList.length > 0 ? (
-        <TaskList taskList={taskList} />
-      ) : (
-        <Text>No task yet</Text>
-      )}
+      {/* <Skeleton /> */}
+      {taskList.length > 0 ? <TaskList taskList={taskList} /> : <Skeleton />}
     </View>
   );
 };

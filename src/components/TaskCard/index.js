@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Pressable } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import styles from "./styles";
 import {
   Feather,
@@ -11,15 +11,12 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
 const TaskCard = ({ id, item }) => {
-  const [isCheckedTask, setIsCheckedTask] = useState(true);
-
   const handleCheckCompleteTask = async (docId) => {
-    setIsCheckedTask(false);
+    // Update document
     const updatedDoc = await updateDoc(doc(db, "Tasks", docId), {
       taskCategory: "completed",
       isCompleted: true,
     });
-    console.log("updatedDoc", updatedDoc);
   };
 
   return (
