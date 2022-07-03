@@ -4,6 +4,8 @@ export default colors = {
 
   primary: "#000",
   gray: "#bbb",
+  errorColor: "#e56873",
+  errorBackground: "#fef1f2",
 
   color7: "#00F5D4",
   color1: "#47E0FF",

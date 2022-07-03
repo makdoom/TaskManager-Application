@@ -25,6 +25,10 @@ import { colorList, taskTypeButtonList } from "../../constant/data";
 
 const AddTask = ({ navigation }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [error, setError] = useState({
+    title: "",
+    deadline: "",
+  });
   const [newTask, setNewTask] = useState({
     title: "",
     deadline: "",
@@ -32,7 +36,10 @@ const AddTask = ({ navigation }) => {
     taskColor: colorList[0].color,
   });
 
-  const handleTaskChange = (text) => setNewTask({ ...newTask, title: text });
+  const handleTaskChange = (text) => {
+    setError({ title: "", deadline: "" });
+    setNewTask({ ...newTask, title: text });
+  };
 
   const handleTaskTypeChange = (text) => {
     setNewTask({ ...newTask, taskType: text });
@@ -50,6 +57,7 @@ const AddTask = ({ navigation }) => {
   };
 
   const handleConfirm = (date) => {
+    setError({ title: "", deadline: "" });
     let selectedDate = formatDate(date);
 
     setNewTask({ ...newTask, deadline: selectedDate });
@@ -58,7 +66,15 @@ const AddTask = ({ navigation }) => {
 
   // Create new task and saved to firstore
   const createNewTask = async () => {
-    if (!newTask.title || !newTask.deadline) return;
+    if (!newTask.title) {
+      return setError({ ...error, title: "Please enter task title" });
+    }
+    if (!newTask.deadline) {
+      return setError({
+        ...error,
+        deadline: "Please select a valid deadline date",
+      });
+    }
 
     let docData = {
       taskTitle: newTask?.title,
@@ -97,24 +113,41 @@ const AddTask = ({ navigation }) => {
           <TextField
             placeholder="Task Title"
             handleTaskChange={handleTaskChange}
+            isError={error?.title}
           />
 
           {/* date time picker */}
-          <Pressable style={styles.textField} onPress={showDatePicker}>
-            {newTask?.deadline === "" ? (
-              <Text style={styles.label}>Deadline</Text>
+          <View style={styles.deadlineDateContainer}>
+            <Pressable
+              style={[
+                styles.textField,
+                error.deadline && {
+                  backgroundColor: colors.errorBackground,
+                  borderColor: colors.errorColor,
+                },
+              ]}
+              onPress={showDatePicker}
+            >
+              {newTask?.deadline === "" ? (
+                <Text style={styles.label}>Deadline</Text>
+              ) : (
+                <Text style={styles.date}>{newTask?.deadline}</Text>
+              )}
+              <Feather name="calendar" size={20} />
+              <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="datetime"
+                is24Hour={false}
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
+              />
+            </Pressable>
+            {error.deadline ? (
+              <Text style={styles.error}>{error?.deadline}</Text>
             ) : (
-              <Text style={styles.date}>{newTask?.deadline}</Text>
+              <></>
             )}
-            <Feather name="calendar" size={20} />
-            <DateTimePickerModal
-              isVisible={isDatePickerVisible}
-              mode="datetime"
-              is24Hour={false}
-              onConfirm={handleConfirm}
-              onCancel={hideDatePicker}
-            />
-          </Pressable>
+          </View>
 
           {/* Task Type */}
           <View style={styles.taskTypeContainer}>
@@ -134,7 +167,6 @@ const AddTask = ({ navigation }) => {
                 )}
               />
             </View>
-            <View></View>
           </View>
 
           {/* Task Color */}

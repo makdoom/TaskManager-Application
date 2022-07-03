@@ -3,15 +3,27 @@ import React, { useState } from "react";
 import styles from "./styles";
 import colors from "../../constant/colors";
 
-const TextField = ({ placeholder, handleTaskChange }) => {
+const TextField = ({ isError, placeholder, handleTaskChange }) => {
   return (
-    <View style={styles.textContainer}>
+    <View style={[styles.textContainer]}>
       <TextInput
-        style={[styles.textField]}
+        style={[
+          styles.textField,
+          isError && {
+            backgroundColor: colors.errorBackground,
+            borderColor: colors.errorColor,
+          },
+        ]}
         placeholder={placeholder}
-        placeholderStyle={{ fontFamily: "RubikLight", borderColor: "red" }}
+        placeholderStyle={{ fontFamily: "RubikLight" }}
         onChangeText={(text) => handleTaskChange(text)}
       />
+      {/* {isError && <Text>Please enter task title</Text>} */}
+      {isError ? (
+        <Text style={styles.error}>Please enter task title</Text>
+      ) : (
+        <></>
+      )}
     </View>
   );
 };

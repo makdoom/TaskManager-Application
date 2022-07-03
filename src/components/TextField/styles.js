@@ -20,4 +20,10 @@ export default StyleSheet.create({
     borderColor: colors.gray,
     marginTop: 5,
   },
+  error: {
+    color: colors.errorColor,
+    fontFamily: "RubikMedium",
+    marginTop: 5,
+    paddingLeft: 5,
+  },
 });

@@ -33,6 +33,9 @@ export default StyleSheet.create({
     marginVertical: 40,
     paddingHorizontal: 16,
   },
+  deadlineDateContainer: {
+    marginBottom: 25,
+  },
   textField: {
     backgroundColor: colors.white,
     paddingVertical: 16,
@@ -40,7 +43,6 @@ export default StyleSheet.create({
     borderRadius: 30,
     borderWidth: 1,
     borderColor: colors.gray,
-    marginBottom: 25,
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -95,5 +97,11 @@ export default StyleSheet.create({
     fontSize: 17,
     fontFamily: "RubikMedium",
     marginLeft: 5,
+  },
+  error: {
+    color: colors.errorColor,
+    fontFamily: "RubikMedium",
+    marginTop: 5,
+    paddingLeft: 5,
   },
 });
