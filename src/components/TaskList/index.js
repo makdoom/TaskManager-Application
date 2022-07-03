@@ -10,7 +10,7 @@ const TaskList = ({ taskList }) => {
       <FlatList
         data={taskList}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <TaskCard item={item.data()} />}
+        renderItem={({ item }) => <TaskCard id={item.id} item={item.data()} />}
       />
     </View>
   );

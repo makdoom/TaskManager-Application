@@ -7,9 +7,20 @@ import {
   MaterialCommunityIcons,
   AntDesign,
 } from "react-native-vector-icons";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../config/firebase";
 
-const TaskCard = ({ item }) => {
+const TaskCard = ({ id, item }) => {
   const [isCheckedTask, setIsCheckedTask] = useState(true);
+
+  const handleCheckCompleteTask = async (docId) => {
+    setIsCheckedTask(false);
+    const updatedDoc = await updateDoc(doc(db, "Tasks", docId), {
+      taskCategory: "completed",
+      isCompleted: true,
+    });
+    console.log("updatedDoc", updatedDoc);
+  };
 
   return (
     <View style={[styles.taskCard, { backgroundColor: item?.colorCode }]}>
@@ -39,12 +50,12 @@ const TaskCard = ({ item }) => {
             </Text>
           </View>
         </View>
-        {isCheckedTask ? (
-          <TouchableOpacity onPress={() => setIsCheckedTask(!isCheckedTask)}>
+        {item?.isCompleted ? (
+          <AntDesign name="checkcircle" size={22} />
+        ) : (
+          <TouchableOpacity onPress={() => handleCheckCompleteTask(id)}>
             <Feather name="circle" size={22} />
           </TouchableOpacity>
-        ) : (
-          <AntDesign name="checkcircle" size={22} />
         )}
       </View>
     </View>

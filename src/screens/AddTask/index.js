@@ -107,6 +107,7 @@ const AddTask = ({ navigation }) => {
       taskType: newTask?.taskType,
       colorCode: newTask?.taskColor,
       taskCategory: newTask?.taskCategory,
+      isCompleted: false,
       timestamp: serverTimestamp(),
     };
 
