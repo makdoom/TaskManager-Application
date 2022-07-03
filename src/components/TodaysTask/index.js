@@ -8,6 +8,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  where,
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
@@ -17,7 +18,11 @@ const TodaysTask = () => {
   useEffect(() => {
     // fetch data from firebase
     const unsubscribe = onSnapshot(
-      query(collection(db, "Tasks"), orderBy("timestamp", "desc")),
+      query(
+        collection(db, "Tasks"),
+        where("taskCategory", "==", "today"),
+        orderBy("timestamp", "desc")
+      ),
       (snapshot) => {
         setTaskList(snapshot.docs);
       }
