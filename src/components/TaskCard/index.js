@@ -9,10 +9,12 @@ import {
 } from "react-native-vector-icons";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
+import { useNavigation } from "@react-navigation/native";
 
 const TaskCard = ({ id, item }) => {
+  const navigation = useNavigation();
+
   const handleCheckCompleteTask = async (docId) => {
-    // Update document
     const updatedDoc = await updateDoc(doc(db, "Tasks", docId), {
       taskCategory: "completed",
       isCompleted: true,
@@ -23,11 +25,15 @@ const TaskCard = ({ id, item }) => {
     <View style={[styles.taskCard, { backgroundColor: item?.colorCode }]}>
       <View style={styles.taskTopCard}>
         <Text style={styles.taskType}>{item?.taskType}</Text>
-        <MaterialCommunityIcons
-          name="square-edit-outline"
-          style={styles.editIcon}
-          size={22}
-        />
+        <TouchableOpacity
+          onPress={() => navigation.navigate("AddTask", { id, data: item })}
+        >
+          <MaterialCommunityIcons
+            name="square-edit-outline"
+            style={styles.editIcon}
+            size={22}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.taskMiddleCard}>
         <Text style={styles.taskTitle}>{item?.taskTitle}</Text>

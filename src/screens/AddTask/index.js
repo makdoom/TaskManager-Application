@@ -19,36 +19,51 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
 import TButton from "../../components/Button";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { colorList, taskTypeButtonList } from "../../constant/data";
 import ButtonSpinner from "react-native-button-spinner";
 
-const AddTask = ({ navigation }) => {
+const AddTask = ({ route, navigation }) => {
+  const state = route.params;
+
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [error, setError] = useState({
-    title: "",
+    taskTitle: "",
     deadline: "",
   });
+  const [eidtedField, setEidtedField] = useState({});
   const [newTask, setNewTask] = useState({
-    title: "",
-    deadline: "",
-    taskType: "Home",
-    taskColor: colorList[0].color,
-    taskCategory: "",
+    taskTitle: state?.data?.taskTitle ? state?.data?.taskTitle : "",
+    deadline: state?.data?.deadline ? state?.data?.deadline : "",
+    taskType: state?.data?.taskType ? state?.data?.taskType : "Home",
+    colorCode: state?.data?.colorCode
+      ? state?.data?.colorCode
+      : colorList[0].color,
+    taskCategory: state?.data?.taskCategory ? state?.data?.taskCategory : "",
+    isCompleted: false,
   });
 
   const handleTaskChange = (text) => {
-    setError({ title: "", deadline: "" });
-    setNewTask({ ...newTask, title: text });
+    setError({ taskTitle: "", deadline: "" });
+    setEidtedField({ ...eidtedField, taskTitle: text });
+    setNewTask({ ...newTask, taskTitle: text });
   };
 
   const handleTaskTypeChange = (text) => {
     setNewTask({ ...newTask, taskType: text });
+    setEidtedField({ ...eidtedField, taskType: text });
   };
 
   const handleChangeColor = (color) => {
-    setNewTask({ ...newTask, taskColor: color });
+    setNewTask({ ...newTask, colorCode: color });
+    setEidtedField({ ...eidtedField, colorCode: color });
   };
 
   // Date Picker
@@ -59,7 +74,7 @@ const AddTask = ({ navigation }) => {
   };
 
   const handleConfirm = (date) => {
-    setError({ title: "", deadline: "" });
+    setError({ taskTitle: "", deadline: "" });
 
     let todaysDate = moment(new Date()).format("YYYY-MM-DD");
     let userSelectedDate = moment(date).format("YYYY-MM-DD");
@@ -78,9 +93,19 @@ const AddTask = ({ navigation }) => {
         deadline: formatDate(date),
         taskCategory: "today",
       });
+      setEidtedField({
+        ...eidtedField,
+        deadline: formatDate(date),
+        taskCategory: "today",
+      });
     } else {
       setNewTask({
         ...newTask,
+        deadline: formatDate(date),
+        taskCategory: "upcoming",
+      });
+      setEidtedField({
+        ...eidtedField,
         deadline: formatDate(date),
         taskCategory: "upcoming",
       });
@@ -91,8 +116,8 @@ const AddTask = ({ navigation }) => {
 
   // Create new task and saved to firstore
   const createNewTask = async () => {
-    if (!newTask.title) {
-      return setError({ ...error, title: "Please enter task title" });
+    if (!newTask.taskTitle) {
+      return setError({ ...error, taskTitle: "Please enter task title" });
     }
     if (!newTask.deadline) {
       return setError({
@@ -102,12 +127,12 @@ const AddTask = ({ navigation }) => {
     }
 
     let docData = {
-      taskTitle: newTask?.title,
+      taskTitle: newTask?.taskTitle,
       deadline: newTask?.deadline,
       taskType: newTask?.taskType,
-      colorCode: newTask?.taskColor,
+      colorCode: newTask?.colorCode,
       taskCategory: newTask?.taskCategory,
-      isCompleted: false,
+      isCompleted: newTask?.isCompleted,
       timestamp: serverTimestamp(),
     };
 
@@ -116,6 +141,18 @@ const AddTask = ({ navigation }) => {
     if (createNewTask) {
       navigation.navigate("Home");
     }
+  };
+
+  // Update Task
+  const upadateTask = async () => {
+    if (Object.keys(eidtedField).length === 0) return null;
+
+    const updatedDoc = await updateDoc(doc(db, "Tasks", state?.id), {
+      ...eidtedField,
+      timestamp: serverTimestamp(),
+    });
+
+    navigation.navigate("Home");
   };
 
   return (
@@ -139,8 +176,9 @@ const AddTask = ({ navigation }) => {
         <View style={styles.addTaskBody}>
           <TextField
             placeholder="Task Title"
+            value={newTask?.taskTitle}
             handleTaskChange={handleTaskChange}
-            isError={error?.title}
+            isError={error?.taskTitle}
           />
 
           {/* date time picker */}
@@ -211,7 +249,7 @@ const AddTask = ({ navigation }) => {
                     onPress={() => handleChangeColor(item.color)}
                     style={[
                       styles.colorContainer,
-                      newTask.taskColor === item.color && {
+                      newTask.colorCode === item.color && {
                         elevation: 8,
                         borderWidth: 2,
                         borderColor: "#A9A9A9",
@@ -233,7 +271,7 @@ const AddTask = ({ navigation }) => {
           style: { marginRight: 8 },
           color: "#fff",
         }}
-        onPress={createNewTask}
+        onPress={() => (state?.id ? upadateTask() : createNewTask())}
         style={styles.addButton}
       >
         <Text style={styles.btnText}>Save Task</Text>

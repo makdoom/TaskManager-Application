@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "./styles";
 import colors from "../../constant/colors";
 
-const TextField = ({ isError, placeholder, handleTaskChange }) => {
+const TextField = ({ value, isError, placeholder, handleTaskChange }) => {
   return (
     <View style={[styles.textContainer]}>
       <TextInput
@@ -15,6 +15,7 @@ const TextField = ({ isError, placeholder, handleTaskChange }) => {
           },
         ]}
         placeholder={placeholder}
+        value={value}
         placeholderStyle={{ fontFamily: "RubikLight" }}
         onChangeText={(text) => handleTaskChange(text)}
       />
