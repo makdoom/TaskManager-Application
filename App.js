@@ -2,9 +2,11 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, LogBox } from "react-native";
 import AddTask from "./src/screens/AddTask";
 import Home from "./src/screens/Home";
+
+LogBox.ignoreLogs(["Warning: ..."]);
 
 const Stack = createStackNavigator();
 

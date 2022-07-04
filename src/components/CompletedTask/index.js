@@ -10,9 +10,11 @@ import {
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import TaskList from "../TaskList";
+import SkeletonLoading from "../Skeleton";
 
 const CompletedTask = () => {
   const [taskList, setTaskList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Fetch upcoming task from firestore
@@ -24,6 +26,7 @@ const CompletedTask = () => {
       ),
       (snapshot) => {
         setTaskList(snapshot.docs);
+        setIsLoading(false);
       }
     );
 
@@ -31,10 +34,12 @@ const CompletedTask = () => {
   }, []);
   return (
     <View>
-      {taskList.length > 0 ? (
+      {isLoading ? (
+        <SkeletonLoading />
+      ) : taskList.length > 0 ? (
         <TaskList taskList={taskList} />
       ) : (
-        <Text>No Completed task yet</Text>
+        <Text>No data found</Text>
       )}
     </View>
   );

@@ -1,25 +1,30 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { Placeholder, PlaceholderLine, Fade } from "rn-placeholder";
+import styles from "./styles";
 import colors from "../../constant/colors";
+import { SkeletonContainer, Skeleton } from "@nlazzos/react-native-skeleton";
 
-const Skeleton = () => {
+const SkeletonLoading = () => {
   return (
-    <View style={{ paddingHorizontal: 16 }}>
-      <Placeholder
-        style={{}}
-        Animation={(props) => (
-          <Fade {...props} style={{ backgroundColor: colors.gray }} />
-        )}
-      >
-        {/* <PlaceholderLine height={220} style={{ borderRadius: 10 }} />
-        <PlaceholderLine height={220} style={{ borderRadius: 10 }} /> */}
-        <PlaceholderLine style={{ borderWidth: 1 }} width={80} height={200} />
-        <PlaceholderLine />
-        <PlaceholderLine width={30} />
-      </Placeholder>
+    <View style={styles.skeletonContainer}>
+      <View style={styles.cardContainer}>
+        <SkeletonContainer animation="wave">
+          <Skeleton style={styles.taskType} />
+          <Skeleton style={styles.taskTitle} />
+          <Skeleton style={styles.deadline} />
+          <Skeleton style={styles.time} />
+        </SkeletonContainer>
+      </View>
+      <View style={styles.cardContainer}>
+        <SkeletonContainer animation="wave">
+          <Skeleton style={styles.taskType} />
+          <Skeleton style={styles.taskTitle} />
+          <Skeleton style={styles.deadline} />
+          <Skeleton style={styles.time} />
+        </SkeletonContainer>
+      </View>
     </View>
   );
 };
 
-export default Skeleton;
+export default SkeletonLoading;

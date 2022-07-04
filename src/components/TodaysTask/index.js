@@ -11,7 +11,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
-import Skeleton from "../Skeleton";
+import SkeletonLoading from "../Skeleton";
 
 const TodaysTask = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,14 +27,22 @@ const TodaysTask = () => {
       ),
       (snapshot) => {
         setTaskList(snapshot.docs);
+        setIsLoading(false);
       }
     );
+
+    return unsubscribe;
   }, []);
 
   return (
     <View>
-      {/* <Skeleton /> */}
-      {taskList.length > 0 ? <TaskList taskList={taskList} /> : <Skeleton />}
+      {isLoading ? (
+        <SkeletonLoading />
+      ) : taskList.length > 0 ? (
+        <TaskList taskList={taskList} />
+      ) : (
+        <Text>No data found</Text>
+      )}
     </View>
   );
 };
