@@ -52,4 +52,20 @@ export default StyleSheet.create({
     marginLeft: 8,
     fontFamily: "RubikRegular",
   },
+  deleteContainer: {
+    justifyContent: "center",
+  },
+  deleteBox: {
+    marginBottom: 20,
+    padding: 15,
+    borderRadius: 50,
+    backgroundColor: "#F25467",
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 6,
+    marginLeft: 15,
+  },
+  deleteIcon: {
+    color: "#fff",
+  },
 });
