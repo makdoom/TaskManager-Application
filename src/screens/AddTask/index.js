@@ -137,7 +137,6 @@ const AddTask = ({ route, navigation }) => {
     };
 
     const createdTaskRef = await addDoc(collection(db, "Tasks"), docData);
-    console.log(createdTaskRef.id);
     if (createNewTask) {
       navigation.navigate("Home");
     }

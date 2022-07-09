@@ -11,6 +11,7 @@ import {
 import { db } from "../../config/firebase";
 import TaskList from "../TaskList";
 import SkeletonLoading from "../Skeleton";
+import EmptyTask from "../EmptyTask";
 
 const CompletedTask = () => {
   const [taskList, setTaskList] = useState([]);
@@ -39,7 +40,10 @@ const CompletedTask = () => {
       ) : taskList.length > 0 ? (
         <TaskList taskList={taskList} />
       ) : (
-        <Text>No data found</Text>
+        <EmptyTask
+          imageSrc={require("../../../assets/images/completed.png")}
+          text="You have not completed any task yet..!"
+        />
       )}
     </View>
   );

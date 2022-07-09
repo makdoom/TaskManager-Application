@@ -30,20 +30,16 @@ const TaskCard = ({ id, item }) => {
 
   const deleteTask = async () => {
     await deleteDoc(doc(db, "Tasks", id));
-    console.log("will delete", id);
   };
 
   // Left swipe action button
   const rightSwipeAction = (progress, dragX) => {
-    // console.log(dragX);
     const scale = dragX.interpolate({
       inputRange: [-100, 0],
       outputRange: [1, 0.6],
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     });
-
-    console.log(scale);
 
     return (
       <TouchableOpacity style={styles.deleteContainer}>

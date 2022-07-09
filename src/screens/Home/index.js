@@ -29,10 +29,6 @@ const Home = ({ navigation }) => {
 
   const handleAddTask = () => navigation.navigate("AddTask");
 
-  useEffect(() => {
-    console.log(tabStatus);
-  }, [tabStatus]);
-
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.safeAreaViewContainer}>

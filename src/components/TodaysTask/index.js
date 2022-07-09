@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import SkeletonLoading from "../Skeleton";
+import EmptyTask from "../EmptyTask";
 
 const TodaysTask = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -41,7 +42,10 @@ const TodaysTask = () => {
       ) : taskList.length > 0 ? (
         <TaskList taskList={taskList} />
       ) : (
-        <Text>No data found</Text>
+        <EmptyTask
+          imageSrc={require("../../../assets/images/notask.png")}
+          text={`You have no tasks to do enjoy your day or add some tasks..!`}
+        />
       )}
     </View>
   );

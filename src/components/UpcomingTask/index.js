@@ -11,6 +11,7 @@ import {
 import TaskList from "../TaskList";
 import { db } from "../../config/firebase";
 import SkeletonLoading from "../Skeleton";
+import EmptyTask from "../EmptyTask";
 
 const UpcomingTask = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +41,10 @@ const UpcomingTask = () => {
       ) : taskList.length > 0 ? (
         <TaskList taskList={taskList} />
       ) : (
-        <Text>No data found</Text>
+        <EmptyTask
+          imageSrc={require("../../../assets/images/noupcomingtask.png")}
+          text="You have no upcomming tasks to do ..!"
+        />
       )}
     </View>
   );
