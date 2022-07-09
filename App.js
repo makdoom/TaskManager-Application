@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, LogBox } from "react-native";
 import AddTask from "./src/screens/AddTask";
 import Home from "./src/screens/Home";
+import Login from "./src/screens/Login";
 
 LogBox.ignoreLogs(["Warning: ..."]);
 
@@ -31,7 +32,11 @@ export default function App() {
 
   return (
     <NavigationContainer theme={theme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName={Login}
+      >
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="AddTask" component={AddTask} />
       </Stack.Navigator>
